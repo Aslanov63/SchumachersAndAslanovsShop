@@ -1,0 +1,55 @@
+﻿@model SchumachersAndAslanovsShop.Models.Part
+
+<div class="container mt-4">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <div class="card shadow border-0">
+                <div class="card-header bg-primary text-white d-flex justify-content-between align-items-center">
+                    <h4 class="mb-0"><i class="bi bi-gear-wide-connected me-2"></i>Add New Part</h4>
+                    <a asp-action="ManageParts" class="btn btn-outline-light btn-sm">Cancel</a>
+                </div>
+                <div class="card-body p-4">
+                    <form asp-controller="Admin" asp-action="AddPart" method="post">
+                        
+                        <div class="mb-3">
+                            <label class="form-label fw-bold">Part Name</label>
+                            <input asp-for="PartName" class="form-control" placeholder="e.g. Brake Pads" required />
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <label class="form-label fw-bold">Price ($)</label>
+                                <input asp-for="PartPrice" type="number" step="0.01" class="form-control" required />
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <label class="form-label fw-bold">Stock Quantity</label>
+                                <input asp-for="PartQuantity" type="number" class="form-control" required />
+                            </div>
+                        </div>
+
+                        <div class="mb-3">
+                            <label class="form-label fw-bold">Category</label>
+                            <select asp-for="PartCategoryId" class="form-select"
+                                    asp-items="@(new SelectList(ViewBag.Categories, "CategoryId", "CategoryName"))">
+                                <option value="">-- Select Category --</option>
+                            </select>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <label class="form-label fw-bold">Manufacturer</label>
+                                <input asp-for="PartManufacturer" class="form-control" />
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <label class="form-label fw-bold">Material</label>
+                                <input asp-for="PartMaterial" class="form-control" />
+                            </div>
+                        </div>
+
+                        <button type="submit" class="btn btn-primary w-100 fw-bold">Add Part to Store</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

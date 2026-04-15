@@ -1,0 +1,60 @@
+﻿@model RegisterViewModel
+
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-6 border shadow-lg p-4 rounded bg-white">
+            <h2 class="text-center fw-bold text-danger mb-4">Schumacher & Aslanov Join</h2>
+            <form asp-action="Register" method="post">
+                <div asp-validation-summary="ModelOnly" class="text-danger small"></div>
+
+                <div class="mb-3">
+                    <label class="form-label fw-bold">Nickname</label>
+                    <input asp-for="Username" class="form-control" placeholder="Choose a unique nickname" />
+                    <span asp-validation-for="Username" class="text-danger small"></span>
+                </div>
+
+                <div class="row mb-3">
+                    <div class="col">
+                        <label class="form-label fw-bold">First Name</label>
+                        <input asp-for="Name" class="form-control" />
+                        <span asp-validation-for="Name" class="text-danger small"></span>
+                    </div>
+                    <div class="col">
+                        <label class="form-label fw-bold">Surname</label>
+                        <input asp-for="Surname" class="form-control" />
+                        <span asp-validation-for="Surname" class="text-danger small"></span>
+                    </div>
+                </div>
+
+                <div class="mb-3">
+                    <label class="form-label fw-bold">Gmail (@@)</label>
+                    <input asp-for="Gmail" class="form-control" placeholder="example@gmail.com" />
+                    <span asp-validation-for="Gmail" class="text-danger small"></span>
+                </div>
+
+                <div class="mb-3">
+                    <label class="form-label fw-bold">Phone (+)</label>
+                    <input asp-for="TelNumber" class="form-control" placeholder="+371..." />
+                    <span asp-validation-for="TelNumber" class="text-danger small"></span>
+                </div>
+
+                <div class="row mb-4">
+                    <div class="col">
+                        <label class="form-label fw-bold">Password</label>
+                        <input asp-for="Password" class="form-control" type="password" />
+                        <span asp-validation-for="Password" class="text-danger small"></span>
+                    </div>
+                    <div class="col">
+                        <label class="form-label fw-bold">Confirm</label>
+                        <input asp-for="ConfirmPassword" class="form-control" type="password" />
+                        <span asp-validation-for="ConfirmPassword" class="text-danger small"></span>
+                    </div>
+                </div>
+
+                <button type="submit" class="btn btn-danger btn-lg w-100 fw-bold shadow-sm">
+                    Create Account
+                </button>
+            </form>
+        </div>
+    </div>
+</div>

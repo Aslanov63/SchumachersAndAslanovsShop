@@ -1,0 +1,47 @@
+﻿@model IEnumerable<SchumachersAndAslanovsShop.Models.ShoppingCart>
+
+<div class="container mt-4">
+    <h2 class="mb-4">Shopping cart</h2>
+
+    @if (Model == null || !Model.Any())
+    {
+        <div class="alert alert-warning">Nothing here.</div>
+        <a asp-controller="Parts" asp-action="Categories" class="btn btn-primary">Get back to driving</a>
+    }
+    else
+    {
+        <table class="table table-striped border shadow-sm">
+            <thead class="table-dark">
+                <tr>
+                    <th>Item</th>
+                    <th>Price per 1.</th>
+                    <th>Quantity </th>
+                    <th>Total</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>@item.Part?.PartName</td>
+                        <td>@item.Part?.PartPrice.ToString("F2") $</td>
+                        @* В ShoppingCart обычно 1 ед. товара на строку *@
+                        <td>1</td>
+                        <td class="fw-bold">@item.Part?.PartPrice.ToString("F2") $</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+
+        <div class="text-end mt-4">
+            <h4>Total: <span class="text-success">@ViewBag.TotalSum?.ToString("F2") $</span></h4>
+            <hr />
+            <a asp-action="Clear" class="btn btn-outline-danger">Clear all</a>
+            <form asp-controller="Cart" asp-action="Checkout" method="post" style="display: inline;">
+                <button type="submit" class="btn btn-success">
+                    Make an order
+                </button>
+            </form>
+        </div>
+    }
+</div>

@@ -1,0 +1,115 @@
+﻿<form asp-controller="Admin" asp-action="AddCar" method="post" class="p-3">
+    <h5 class="text-primary border-bottom pb-2">General Information</h5>
+    <div class="row">
+        <div class="col-md-4 mb-3">
+            <label class="fw-bold">Brand</label>
+            <input name="CarBrand" class="form-control" placeholder="BMW" required />
+        </div>
+        <div class="col-md-4 mb-3">
+            <label class="fw-bold">Model</label>
+            <input name="CarModel" class="form-control" placeholder="M5" required />
+        </div>
+        <div class="col-md-4 mb-3">
+            <label class="fw-bold">Category</label>
+            <select name="CategoryId" class="form-select">
+                @foreach (var cat in ViewBag.Categories)
+                {
+                    <option value="@cat.Id">@cat.Name</option>
+                }
+            </select>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-3 mb-3">
+            <label class="fw-bold">Price ($)</label>
+            <input name="Price" type="number" class="form-control" required />
+        </div>
+        <div class="col-md-3 mb-3">
+            <label class="fw-bold">Year</label>
+            <input name="CarYear" type="number" class="form-control" required />
+        </div>
+        <div class="col-md-3 mb-3">
+            <label class="fw-bold">Mileage (km)</label>
+            <input name="CarMilage" type="number" class="form-control" required />
+        </div>
+        <div class="col-md-3 mb-3">
+            <label class="fw-bold">Image URL</label>
+            <input name="CarImageUrl" class="form-control" placeholder="http://..." required />
+        </div>
+    </div>
+
+    <h5 class="text-primary border-bottom mt-4 pb-2">Technical Specs & History</h5>
+    <div class="row">
+        <div class="col-md-4 mb-3">
+            <label class="fw-bold">Engine Name</label>
+            <input name="CarEngine" class="form-control" placeholder="S63B44T4" />
+        </div>
+        <div class="col-md-4 mb-3">
+            <label class="fw-bold">Fuel/Engine Type</label>
+            <input name="EngineType" class="form-control" placeholder="Gasoline/Twin-Turbo" />
+        </div>
+        <div class="col-md-4 mb-3">
+            <label class="fw-bold">Volume (L)</label>
+            <input name="EngineVolume" type="number" step="0.1" class="form-control" placeholder="4.4" />
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-4 mb-3">
+            <label class="fw-bold">Transmission</label>
+            <select name="Transmission" class="form-select">
+                <option value="Automatic">Automatic</option>
+                <option value="Manual">Manual</option>
+                <option value="Sequential">Sequential</option>
+                <option value="Dual-clutch">Dual-clutch</option>
+            </select>
+        </div>
+        <div class="col-md-4 mb-3">
+            <label class="fw-bold">Wheel Drive</label>
+            <select name="WheelDrive" class="form-select">
+                <option value="AWD">AWD (All-Wheel)</option>
+                <option value="RWD">RWD (Rear-Wheel)</option>
+                <option value="FWD">FWD (Front-Wheel)</option>
+            </select>
+        </div>
+        <div class="col-md-4 mb-3">
+            <label class="fw-bold">Interior Color</label>
+            <input name="InteriorColor" class="form-control" placeholder="Beige Leather" />
+        </div>
+    </div>
+
+    <div class="row bg-light p-3 rounded">
+        <div class="col-md-3 mb-3">
+            <label class="fw-bold">Owners</label>
+            <input type="number" name="OwnersBefore" class="form-control" value="1" />
+        </div>
+        <div class="col-md-3 mb-3">
+            <label class="fw-bold">AC</label>
+            <select name="Ac" class="form-select">
+                <option value="1">Yes</option>
+                <option value="0">No</option>
+            </select>
+        </div>
+        <div class="col-md-3 mb-3">
+            <label class="fw-bold">Crashed</label>
+            <select name="Crashed" class="form-select">
+                <option value="0">No</option>
+                <option value="1">Yes</option>
+            </select>
+        </div>
+        <div class="col-md-3 mb-3">
+            <label class="fw-bold">Painted</label>
+            <select name="Painted" class="form-select">
+                <option value="0">No</option>
+                <option value="1">Yes</option>
+            </select>
+        </div>
+    </div>
+
+    <div class="mt-4">
+        <button type="submit" class="btn btn-success btn-lg w-100 shadow">
+            <i class="bi bi-plus-circle me-2"></i>Create Complete Listing
+        </button>
+    </div>
+</form>

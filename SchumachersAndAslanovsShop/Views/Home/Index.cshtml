@@ -1,0 +1,110 @@
+﻿@{
+    ViewData["Title"] = "Home Page";
+}
+
+@* Хедер с приветствием *@
+<div class="text-center my-4 py-5 bg-dark text-white rounded shadow">
+    <h1 class="display-4 fw-bold text-uppercase">
+        WELCOME, @(Context.Session.GetString("Username")?.ToUpper() ?? "DRIVER")!
+    </h1>
+    <p class="lead">Elite Performance & Auto Parts</p>
+</div>
+
+<div class="container mb-5">
+    @* Важно: все карточки должны быть внутри одного row *@
+    <div class="row text-center g-4">
+        
+        <div class="col-md-4">
+            <a asp-controller="Account" asp-action="Profile" class="text-decoration-none text-dark h-100 d-block">
+                <div class="card h-100 border-0 shadow-sm p-4 hover-card">
+                    <img src="https://cdn-icons-png.flaticon.com/512/705/705914.png" class="mx-auto mb-3" style="width: 70px;" alt="Profile">
+                    <h4 class="fw-bold">My Profile</h4>
+                </div>
+            </a>
+        </div>
+
+        <div class="col-md-4">
+            <a asp-controller="Parts" asp-action="Categories" class="text-decoration-none text-dark h-100 d-block">
+                <div class="card h-100 border-0 shadow-sm p-4 hover-card">
+                    <img src="https://cdn-icons-png.flaticon.com/512/598/598827.png" class="mx-auto mb-3" style="width: 70px;" alt="Parts">
+                    <h4 class="fw-bold">Spare Parts</h4>
+                </div>
+            </a>
+        </div>
+
+        <div class="col-md-4">
+            <a href="/Catalog/Cars" class="text-decoration-none text-dark h-100 d-block">
+                <div class="card h-100 border-0 shadow-sm p-4 hover-card">
+                    <img src="https://cdn-icons-png.flaticon.com/512/130/130068.png" class="mx-auto mb-3" style="width: 70px;" alt="Cars">
+                    <h4 class="fw-bold text-uppercase">Car Catalog</h4>
+                    <p class="text-muted small mb-0">NEW MERCEDES AMG GT BLACK SERIES</p>
+                </div>
+            </a>
+        </div>
+
+    </div> @* Конец row *@
+</div> @* Конец container *@
+
+@* Блок новостей *@
+<div class="container mt-5">
+    <div class="row">
+        <div class="col-md-6 mb-4">
+            <h3 class="fw-bold mb-3 border-bottom pb-2">🏁 Motorsport</h3>
+            <div id="motorsport-news" class="p-3 bg-white border rounded shadow-sm" style="min-height: 350px;">
+                <div class="text-center mt-5 text-muted">
+                    <div class="spinner-border spinner-border-sm text-danger" role="status"></div>
+                    <span class="ms-2">Loading engines...</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-6 mb-4">
+            <h3 class="fw-bold mb-3 border-bottom pb-2">🌍 Auto World</h3>
+            <div id="autoworld-news" class="p-3 bg-white border rounded shadow-sm" style="min-height: 350px;">
+                <div class="text-center mt-5 text-muted">
+                    <div class="spinner-border spinner-border-sm text-primary" role="status"></div>
+                    <span class="ms-2">Scanning roads...</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+    .hover-card { 
+        transition: transform 0.3s ease, box-shadow 0.3s ease; 
+        border-radius: 15px !important; 
+    }
+    .hover-card:hover { 
+        transform: translateY(-8px); 
+        box-shadow: 0 12px 20px rgba(0,0,0,0.15) !important; 
+    }
+    .news-item-link { color: #dc3545; font-weight: bold; text-decoration: none; display: block; }
+    .news-item-link:hover { text-decoration: underline; color: #a71d2a; }
+</style>
+
+@section Scripts {
+    <script>
+        function loadNewsData(containerId, rssUrl) {
+            $.getJSON('/Home/GetNews', { url: rssUrl }, function (data) {
+                let htmlContent = '<div class="list-group list-group-flush">';
+                $.each(data, function (i, item) {
+                    htmlContent += `
+                        <div class="list-group-item border-0 px-0 mb-2">
+                            <a href="${item.link}" target="_blank" class="news-item-link mb-1">${item.title}</a>
+                            <small class="text-muted">${item.date}</small>
+                        </div>`;
+                });
+                htmlContent += '</div>';
+                $('#' + containerId).html(htmlContent);
+            }).fail(function() {
+                $('#' + containerId).html('<p class="text-muted p-3 text-center">Connection lost. Refresh to retry.</p>');
+            });
+        }
+
+        $(document).ready(function () {
+            loadNewsData('motorsport-news', 'https://www.autosport.com/rss/feed/all');
+            loadNewsData('autoworld-news', 'https://www.autocar.co.uk/rss');
+        });
+    </script>
+}

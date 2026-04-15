@@ -1,0 +1,56 @@
+﻿@model IEnumerable<SchumachersAndAslanovsShop.Models.User>
+
+<div class="container mt-4">
+    <h2><i class="bi bi-shield-lock"></i> Staff Control</h2>
+    <div class="d-flex justify-content-start mb-3">
+        <a asp-controller="Admin" asp-action="Dashboard" class="btn btn-outline-secondary">
+            <i class="bi bi-arrow-left-circle me-1"></i> Back to Admin Dashboard
+        </a>
+    </div>
+
+    <form asp-action="Staff" method="get" class="row g-2 my-4">
+        <div class="col-md-9">
+            <input type="text" name="searchTerm" value="@ViewBag.CurrentSearch"
+                   class="form-control" placeholder="Nickname search....." />
+        </div>
+        <div class="col-md-3">
+            <button type="submit" class="btn btn-primary w-100">Find</button>
+        </div>
+    </form>
+
+    <table class="table table-hover border">
+        <thead class="table-dark">
+            <tr>
+                <th>Nickname</th>
+                <th>Full Name</th>
+                <th>Role</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var user in Model)
+            {
+                <tr>
+                    <td>@user.Username</td>
+                    <td>@user.Name @user.Surname</td>
+                    <td>
+                        <span class="badge @(user.UserRole == "Admin" ? "bg-danger" : "bg-info")">
+                            @user.UserRole
+                        </span>
+                    </td>
+                    <td>
+                        <form asp-action="UpdateRole" method="post" class="d-flex gap-2">
+                            <input type="hidden" name="userId" value="@user.UserId" />
+                            <select name="newRole" class="form-select form-select-sm">
+                                <option value="User" selected="@(user.UserRole == "User")">User</option>
+                                <option value="Moder" selected="@(user.UserRole == "Moder")">Moderator</option>
+                                <option value="Admin" selected="@(user.UserRole == "Admin")">Admin</option>
+                            </select>
+                            <button type="submit" class="btn btn-sm btn-success">OK</button>
+                        </form>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>

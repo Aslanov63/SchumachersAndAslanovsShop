@@ -1,0 +1,84 @@
+﻿@model IEnumerable<SchumachersAndAslanovsShop.Models.Car>
+
+<div class="container mt-4">
+    <form method="get" class="p-3 bg-light rounded border mb-4 shadow-sm" style="font-size: 0.85rem;">
+        <div class="row g-2 align-items-end">
+            <div class="col-md-3">
+                <label class="fw-bold mb-1 text-uppercase text-muted" style="font-size: 0.75rem;">Search</label>
+                <input type="text" name="searchTerm" class="form-control form-control-sm" placeholder="Brand/Model" value="@ViewBag.CurrentSearch">
+            </div>
+
+            <div class="col-md-3">
+                <label class="fw-bold mb-1 text-uppercase text-muted" style="font-size: 0.75rem;">Sort By</label>
+                <select name="sortBy" class="form-select form-select-sm">
+                    <option value="">Newest</option>
+                    <option value="price_asc" selected="@(ViewBag.SortBy == "price_asc")">Price ↑</option>
+                    <option value="price_desc" selected="@(ViewBag.SortBy == "price_desc")">Price ↓</option>
+                    <option value="mile_asc" selected="@(ViewBag.SortBy == "mile_asc")">Mileage ↑</option>
+                    <option value="mile_desc" selected="@(ViewBag.SortBy == "mile_desc")">Mileage ↓</option>
+                    <option value="vol_asc" selected="@(ViewBag.SortBy == "vol_asc")">Volume ↑</option>
+                    <option value="vol_desc" selected="@(ViewBag.SortBy == "vol_desc")">Volume ↓</option>
+                </select>
+            </div>
+
+            <div class="col-md-3">
+                <label class="fw-bold mb-1 text-uppercase text-muted" style="font-size: 0.75rem;">Price ($)</label>
+                <div class="input-group input-group-sm">
+                    <input type="number" name="minPrice" class="form-control" placeholder="Min" value="@ViewBag.MinPrice">
+                    <input type="number" name="maxPrice" class="form-control" placeholder="Max" value="@ViewBag.MaxPrice">
+                </div>
+            </div>
+
+            <div class="col-md-3">
+                <label class="fw-bold mb-1 text-uppercase text-muted" style="font-size: 0.75rem;">Mileage (km)</label>
+                <div class="input-group input-group-sm">
+                    <input type="number" name="minMileage" class="form-control" placeholder="Min" value="@ViewBag.MinMileage">
+                    <input type="number" name="maxMileage" class="form-control" placeholder="Max" value="@ViewBag.MaxMileage">
+                </div>
+            </div>
+
+            <div class="col-md-3">
+                <label class="fw-bold mb-1 text-uppercase text-muted" style="font-size: 0.75rem;">Volume (L)</label>
+                <div class="input-group input-group-sm">
+                    <input type="number" name="minVolume" step="0.1" class="form-control" placeholder="Min" value="@ViewBag.MinVolume">
+                    <input type="number" name="maxVolume" step="0.1" class="form-control" placeholder="Max" value="@ViewBag.MaxVolume">
+                </div>
+            </div>
+
+            <div class="col-md-9 text-end">
+                <button type="submit" class="btn btn-primary btn-sm px-4 fw-bold">APPLY</button>
+                <a href="@Url.Action("Cars")" class="btn btn-outline-secondary btn-sm px-3">RESET</a>
+            </div>
+        </div>
+    </form>
+
+    <div class="row row-cols-1 row-cols-md-3 g-4">
+        @if (Model.Any())
+        {
+            @foreach (var item in Model)
+            {
+                <div class="col">
+                    <div class="card h-100 shadow-sm border-0">
+                        <img src="@item.CarImageUrl" class="card-img-top" style="height: 200px; object-fit: cover;">
+                        <div class="card-body">
+                            <div class="d-flex justify-content-between">
+                                <h5 class="card-title">@item.CarBrand @item.CarModel</h5>
+                                <span class="text-success fw-bold">$@item.Price</span>
+                            </div>
+                            <p class="text-muted small">
+                                @item.CarYear | @item.CarMilage km | @item.CarEngine
+                            </p>
+                            <a asp-action="Details" asp-route-id="@item.CarId" class="btn btn-outline-dark w-100">Details</a>
+                        </div>
+                    </div>
+                </div>
+            }
+        }
+        else
+        {
+            <div class="col-12 text-center py-5">
+                <h3 class="text-muted">No cars match your filters.</h3>
+            </div>
+        }
+    </div>
+</div>

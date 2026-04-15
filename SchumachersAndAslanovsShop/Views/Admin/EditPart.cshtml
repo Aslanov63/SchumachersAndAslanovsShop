@@ -1,0 +1,67 @@
+﻿@model SchumachersAndAslanovsShop.Models.Part
+
+@{
+    ViewData["Title"] = "Edit Part";
+}
+
+<div class="container mt-4">
+    <div class="card shadow-sm">
+        <div class="card-header bg-primary text-white">
+            <h4 class="mb-0">Edit Part @Model.PartName</h4>
+        </div>
+        <div class="card-body">
+            <form asp-action="EditPart" method="post">
+                @* Обязательно передаем ID как скрытое поле, чтобы контроллер знал, что обновлять *@
+                <input type="hidden" asp-for="PartId" />
+
+                <div class="row">
+                    <div class="col-md-6 mb-3">
+                        <label asp-for="PartName" class="form-label">Name</label>
+                        <input asp-for="PartName" class="form-control" placeholder="Type the name here..." />
+                        <span asp-validation-for="PartName" class="text-danger"></span>
+                    </div>
+
+                    <div class="col-md-6 mb-3">
+                        <label asp-for="PartPrice" class="form-label">Price ($)</label>
+                        <input asp-for="PartPrice" type="number" step="0.01" class="form-control" />
+                        <span asp-validation-for="PartPrice" class="text-danger"></span>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-6 mb-3">
+                        <label asp-for="PartQuantity" class="form-label">Stock</label>
+                        <input asp-for="PartQuantity" type="number" class="form-control" />
+                        <span asp-validation-for="PartQuantity" class="text-danger"></span>
+                    </div>
+
+                    <div class="col-md-6 mb-3">
+                        <label asp-for="PartCategoryId" class="form-label">Category</label>
+                        <select asp-for="PartCategoryId" class="form-select"
+                                asp-items="@(new SelectList(ViewBag.Categories, "CategoryId", "CategoryName"))">
+                            <option value="">-- Select a category --</option>
+                        </select>
+                        <span asp-validation-for="PartCategoryId" class="text-danger"></span>
+                    </div>
+                </div>
+
+                <hr />
+
+                <div class="d-flex justify-content-between">
+                    <a asp-action="ManageParts" class="btn btn-secondary">
+                        <i class="bi bi-arrow-left"></i> Back
+                    </a>
+                    <button type="submit" class="btn btn-success">
+                        <i class="bi bi-check-lg"></i> Save
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

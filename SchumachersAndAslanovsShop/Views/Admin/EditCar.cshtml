@@ -1,0 +1,117 @@
+﻿@model SchumachersAndAslanovsShop.Models.Car
+
+<div class="container mt-4">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <div>
+            <h2 class="fw-bold mb-0 text-dark">Edit Vehicle</h2>
+            <p class="text-muted small">Updating ID: @Model.CarId</p>
+        </div>
+        <a asp-action="ManageCars" class="btn btn-outline-secondary btn-sm">Cancel and Back</a>
+    </div>
+
+    <form asp-action="EditCar" method="post" class="card shadow-sm border-0 p-4 bg-white">
+        <input type="hidden" asp-for="CarId" />
+
+        <div class="row g-4">
+            <div class="col-md-6">
+                <h5 class="fw-bold mb-3 text-primary border-bottom pb-2">General Info</h5>
+                
+                <div class="mb-3">
+                    <label class="form-label small fw-bold">Brand Name</label>
+                    <input asp-for="CarBrand" class="form-control" placeholder="e.g. BMW" required />
+                </div>
+
+                <div class="mb-3">
+                    <label class="form-label small fw-bold">Model</label>
+                    <input asp-for="CarModel" class="form-control" placeholder="e.g. M5 CS" required />
+                </div>
+
+                <div class="row mb-3">
+                    <div class="col">
+                        <label class="form-label small fw-bold">Price ($)</label>
+                        <input asp-for="Price" class="form-control" type="number" />
+                    </div>
+                    <div class="col">
+                        <label class="form-label small fw-bold">Year</label>
+                        <input asp-for="CarYear" class="form-control" type="number" />
+                    </div>
+                </div>
+
+                <div class="mb-3">
+                    <label class="form-label small fw-bold">Mileage (km)</label>
+                    <input asp-for="CarMilage" class="form-control" type="number" />
+                </div>
+
+                <div class="mb-3">
+                    <label class="form-label small fw-bold">Image URL</label>
+                    <input type="text" name="CarImageUrl" class="form-control" value="@Model.CarImageUrl" />
+                </div>
+            </div>
+
+            <div class="col-md-6">
+                <h5 class="fw-bold mb-3 text-success border-bottom pb-2">Technical Specifications</h5>
+
+                <div class="mb-3">
+                    <label class="form-label small fw-bold">Engine Display Name (V8 4.4L Twin-Turbo)</label>
+                    <input type="text" name="CarEngine" class="form-control" value="@Model.CarEngine" />
+                </div>
+
+                <div class="row mb-3">
+                    <div class="col">
+                        <label class="form-label small fw-bold">Transmission</label>
+                        <select name="description.Transmission" class="form-select">
+                            <option value="Automatic" selected="@(Model.Description?.Transmission == "Automatic")">Automatic</option>
+                            <option value="Manual" selected="@(Model.Description?.Transmission == "Manual")">Manual</option>
+                            <option value="Robot" selected="@(Model.Description?.Transmission == "Robot")">Robot</option>
+                        </select>
+                    </div>
+                    <div class="col">
+                        <label class="form-label small fw-bold">Wheel Drive</label>
+                        <select name="description.WheelDrive" class="form-select">
+                            <option value="AWD" selected="@(Model.Description?.WheelDrive == "AWD")">AWD</option>
+                            <option value="RWD" selected="@(Model.Description?.WheelDrive == "RWD")">RWD</option>
+                            <option value="FWD" selected="@(Model.Description?.WheelDrive == "FWD")">FWD</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="row mb-3">
+                    <div class="col">
+                        <label class="form-label small fw-bold">Engine Type</label>
+                        <input type="text" name="description.EngineType" class="form-control" value="@Model.Description?.EngineType" placeholder="Petrol" />
+                    </div>
+                    <div class="col">
+                        <label class="form-label small fw-bold">Volume (L)</label>
+                        <input type="number" step="0.1" name="description.EngineVolume" class="form-control" value="@Model.Description?.EngineVolume" />
+                    </div>
+                </div>
+
+                <div class="row mb-3">
+                    <div class="col">
+                        <label class="form-label small fw-bold">Crashed?</label>
+                        <select name="description.Crashed" class="form-select">
+                            <option value="0" selected="@(Model.Description?.Crashed == 0)">No</option>
+                            <option value="1" selected="@(Model.Description?.Crashed == 1)">Yes</option>
+                        </select>
+                    </div>
+                    <div class="col">
+                        <label class="form-label small fw-bold">Painted?</label>
+                        <select name="description.Painted" class="form-select">
+                            <option value="0" selected="@(Model.Description?.Painted == 0)">No</option>
+                            <option value="1" selected="@(Model.Description?.Painted == 1)">Yes</option>
+                        </select>
+                    </div>
+                </div>
+                
+                <div class="mb-3">
+                    <label class="form-label small fw-bold">Owners Before</label>
+                    <input type="number" name="description.OwnersBefore" class="form-control" value="@Model.Description?.OwnersBefore" />
+                </div>
+            </div>
+        </div>
+
+        <div class="mt-4 pt-3 border-top text-end">
+            <button type="submit" class="btn btn-primary px-5 fw-bold">SAVE CHANGES</button>
+        </div>
+    </form>
+</div>

@@ -1,0 +1,39 @@
+﻿@model IEnumerable<SchumachersAndAslanovsShop.Models.PartCategory>
+
+<h2 class="text-center my-5 fw-bold">What do you want?</h2>
+
+<div class="row">
+    @foreach (var item in Model)
+    {
+        <div class="col-md-3 mb-4">
+            <div class="card shadow-sm h-100 text-center border-0 p-3" style="border-radius: 15px;">
+                
+                <div class="d-flex align-items-center justify-content-center" style="height: 120px;">
+                    @if (!string.IsNullOrEmpty(item.CategoryUrl))
+                    {
+                        @* From SQL categorie url *@
+                        <img src="@item.CategoryUrl" class="img-fluid" style="max-height: 100px; object-fit: contain;" alt="@item.CategoryName">
+                    }
+                    else
+                    {
+                        @* Заглушка, если в базе пусто *@
+                        <img src="https://via.placeholder.com/100?text=No+Photo" class="img-fluid" style="max-height: 100px; object-fit: contain;">
+                    }
+                </div>
+                
+                <div class="card-body">
+                    <h5 class="card-title fw-bold">@item.CategoryName</h5>
+                    <hr class="text-muted" />
+                    <a asp-action="Index" asp-route-categoryId="@item.CategoryId"
+                       class="btn btn-dark w-100 mt-2">Explore</a>
+                </div>
+            </div>
+        </div>
+    }
+</div>
+</div>
+
+<style>
+    
+    .card {
+        transition: transform

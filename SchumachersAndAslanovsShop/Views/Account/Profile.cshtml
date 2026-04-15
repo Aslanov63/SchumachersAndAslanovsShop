@@ -1,0 +1,55 @@
+﻿
+
+@model SchumachersAndAslanovsShop.Models.User
+
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <div class="card shadow-lg border-0" style="border-radius: 20px;">
+                <div class="card-header bg-dark text-white text-center py-4">
+                    <img src="https://static.wikia.nocookie.net/topgear/images/d/d2/White_Stig.jpg"
+                         class="rounded-circle border border-4 border-white mb-2" style="width: 120px; height: 120px; object-fit: cover;">
+                    <h3 class="mb-0">@Model.Username</h3>
+                </div>
+                <div class="card-body p-4">
+                    <form asp-action="UpdateProfile" method="post">
+                        <input type="hidden" asp-for="UserId" />
+                        
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <label class="fw-bold">Name</label>
+                                <input asp-for="Name" class="form-control" placeholder="Enter your name" />
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <label class="fw-bold">Surname</label>
+                                <input asp-for="Surname" class="form-control" placeholder="Enter your surname" />
+                            </div>
+                        </div>
+
+                        <div class="mb-3">
+                            <label class="fw-bold">Email (Gmail)</label>
+                            <input asp-for="Gmail" class="form-control" readonly style="background-color: #e9ecef;" />
+                            <small class="text-muted">Email cannot be changed for security reasons.</small>
+                        </div>
+
+                        <div class="mb-3">
+                            <label class="fw-bold">Phone Number</label>
+                            <input asp-for="TelNumber" class="form-control" placeholder="+X XXX XXX XX XX" />
+                        </div>
+
+                        <hr />
+                        <div class="d-flex justify-content-between">
+                            <button type="submit" class="btn btn-success px-5 fw-bold">Save Changes</button>
+                            <a asp-action="Logout" class="btn btn-outline-danger">Logout</a>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            
+            @if (TempData["SuccessMessage"] != null)
+            {
+                <div class="alert alert-success mt-3 text-center">@TempData["SuccessMessage"]</div>
+            }
+        </div>
+    </div>
+</div>
