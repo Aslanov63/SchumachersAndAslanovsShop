@@ -3,6 +3,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace SchumachersAndAslanovsShop.Models
 {
+    //This class represents an individual item within a customer's order. It includes properties for the quantity of the part ordered, the price at the time of purchase, and foreign key relationships to both the Order and Part entities. The class is decorated with data annotations to define database schema details and relationships.
     [Table("ORDER_ITEMS")] 
     public class OrderItem
     {

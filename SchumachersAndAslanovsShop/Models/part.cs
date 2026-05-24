@@ -3,6 +3,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace SchumachersAndAslanovsShop.Models
 {
+    //This class represents a spare part in the inventory. It includes properties for the part's name, price, quantity, manufacturer, material, and associations to categories and cars. The class is decorated with data annotations to define database schema details and relationships.
     [Table("PART")]
     public class Part
     {

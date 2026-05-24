@@ -1,6 +1,7 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
 namespace SchumachersAndAslanovsShop.Models
+//This class represents the data model for user registration in the Schumachers and Aslanovs Shop application. It includes properties for the user's nickname, password, name, surname, email, and phone number. Data annotations are used to enforce validation rules such as required fields, string length constraints, email format, and password confirmation. This model is typically used in the registration process to capture and validate user input before creating a new user account in the system.
 {
     public class RegisterViewModel
     {

@@ -1,6 +1,7 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 namespace SchumachersAndAslanovsShop.Models
+//This class represents a customer's order in the system. It includes properties for the order's unique identifier, associated user, order date, status, total price, and an optional association to a car. The class also defines relationships to the User and Car entities, as well as a collection of OrderItems that represent the individual items within the order. Data annotations are used to specify database schema details and relationships for integration with Entity Framework Core.
 {
 
     [Table("ORDERS")]

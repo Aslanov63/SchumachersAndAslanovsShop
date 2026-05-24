@@ -1,4 +1,7 @@
 ﻿public static class MySecurityHasher
+//Security hasher for user passwords, providing a method to hash passwords by reversing the
+//input string and adding a salt value to enhance security
+//before storing it in the database in an ASP.NET Core MVC application.
 {
     public static string HashPassword(string password)
     {

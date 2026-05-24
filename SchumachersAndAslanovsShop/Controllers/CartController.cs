@@ -4,8 +4,10 @@ using SchumachersAndAslanovsShop.Data;
 using SchumachersAndAslanovsShop.Models;
 
 namespace SchumachersAndAslanovsShop.Controllers
+// Controller for managing the shopping cart, including adding items, viewing the cart,
+// clearing it, and checking out to create orders in an ASP.NET Core MVC application.
 {
-    public class CartController : Controller
+    public class CartController : Controller // Handles shopping cart operations such as adding items, viewing the cart, clearing it, and checking out to create orders.
     {
         private readonly AppDbContext _context;
 
@@ -25,7 +27,7 @@ namespace SchumachersAndAslanovsShop.Controllers
             return View(items);
         }
 
-        public async Task<IActionResult> AddToCart(int PartId)
+        public async Task<IActionResult> AddToCart(int PartId) // Adds a specified part to the user's shopping cart, ensuring the user is logged in and handling potential errors gracefully.
         {
             int? userId = HttpContext.Session.GetInt32("UserId");
             if (userId == null) return RedirectToAction("Login", "Account");
@@ -53,7 +55,7 @@ namespace SchumachersAndAslanovsShop.Controllers
             return Redirect(Request.Headers["Referer"].ToString() ?? "/");
         }
 
-        public async Task<IActionResult> Clear()
+        public async Task<IActionResult> Clear()// Clears all items from the user's shopping cart, ensuring the user is logged in and handling potential errors gracefully.
         {
             int? userId = HttpContext.Session.GetInt32("UserId");
             if (userId == null) return RedirectToAction("Login", "Account");
@@ -68,8 +70,9 @@ namespace SchumachersAndAslanovsShop.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Checkout()
+        public async Task<IActionResult> Checkout()// Processes the checkout by creating a new order based on the items in the user's shopping cart, ensuring the user is logged in and handling potential errors gracefully.
         {
+
             int? userId = HttpContext.Session.GetInt32("UserId");
             if (userId == null) return RedirectToAction("Login", "Account");
 
@@ -109,7 +112,7 @@ namespace SchumachersAndAslanovsShop.Controllers
             return RedirectToAction("Success");
         }
 
-        public IActionResult Success()
+        public IActionResult Success()// Displays a success message after a successful checkout, confirming the order placement to the user.
         {
             return View();
         }

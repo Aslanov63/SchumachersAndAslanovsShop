@@ -2,6 +2,7 @@
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace SchumachersAndAslanovsShop.Models
+// This class represents a user in the system. It includes properties for the user's unique identifier, username, password, name, surname, email, telephone number, and role. The class is decorated with data annotations to define database schema details and constraints, such as the table name and column mappings. This allows for easy integration with Entity Framework Core for database operations related to users.
 {
     [Table("USERS")]
     public class User

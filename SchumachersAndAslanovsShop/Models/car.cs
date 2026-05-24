@@ -2,6 +2,7 @@
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace SchumachersAndAslanovsShop.Models
+//Model for the car, which contains all the necessary information about the car, such as brand, model, engine, price, year, milage, category and description. It also contains foreign keys to the category and description tables. The category table contains information about the category of the car (e.g., sedan, SUV, etc.), while the description table contains detailed information about the car's features (e.g., interior color, AC, transmission, etc.).
 {
     [Table("CARS")]
     public class Car

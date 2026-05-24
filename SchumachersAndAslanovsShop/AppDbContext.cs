@@ -1,6 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using SchumachersAndAslanovsShop.Models;
-
+// Database 
 namespace SchumachersAndAslanovsShop.Data
 {
     public class AppDbContext : DbContext

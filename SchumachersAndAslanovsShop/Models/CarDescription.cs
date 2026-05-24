@@ -3,6 +3,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace SchumachersAndAslanovsShop.Models
 {
+    //This class represents the detailed technical specifications of a car in the system. It includes properties for interior color, air conditioning presence, transmission type, wheel drive configuration, engine type and volume, previous ownership count, and crash/paint history. The class is decorated with data annotations to define database schema details and relationships.
     [Table("CAR_DESCRIPTION")] 
     public class CarDescription
     {

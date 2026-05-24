@@ -1,10 +1,11 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using SchumachersAndAslanovsShop.Data;
-
+// Controller for managing the car catalog, including displaying car details and listing cars with search, filter,
+// and sorting capabilities in an ASP.NET Core MVC application.
 namespace SchumachersAndAslanovsShop.Controllers
 {
-    public class CatalogController : Controller
+    public class CatalogController : Controller // Handles displaying car details and listing cars with search, filter, and sorting capabilities in the car catalog of an ASP.NET Core MVC application.
     {
         private readonly AppDbContext _context;
 
@@ -13,14 +14,14 @@ namespace SchumachersAndAslanovsShop.Controllers
             _context = context;
         }
 
-        // МЕТОД ДЕТАЛЕЙ (Исправляет ошибку 404)
-        public async Task<IActionResult> Details(int? id)
+        // more details
+        public async Task<IActionResult> Details(int? id) // Displays detailed information about a specific car, including its description and category, based on the provided car ID in an ASP.NET Core MVC application.
         {
             if (id == null) return NotFound();
 
             var car = await _context.Cars
-                .Include(c => c.Description) // Подгружаем тех. характеристики
-                .Include(c => c.Category)    // Подгружаем категорию
+                .Include(c => c.Description) 
+                .Include(c => c.Category)   
                 .FirstOrDefaultAsync(m => m.CarId == id);
 
             if (car == null) return NotFound();
@@ -28,21 +29,21 @@ namespace SchumachersAndAslanovsShop.Controllers
             return View(car);
         }
 
-        // МЕТОД КАТАЛОГА
+        // CARALOG
         public async Task<IActionResult> Cars(string searchTerm, int? minPrice, int? maxPrice,
             int? minMileage, int? maxMileage, double? minVolume, double? maxVolume,
             bool? onlyCleanTitle, string sortBy)
         {
             var query = _context.Cars.Include(c => c.Description).AsQueryable();
 
-            // Поиск
+            // SEARCH
             if (!string.IsNullOrEmpty(searchTerm))
             {
                 var search = searchTerm.ToLower();
                 query = query.Where(c => c.CarBrand.ToLower().Contains(search) || c.CarModel.ToLower().Contains(search));
             }
 
-            // Фильтры
+            // FILTERS
             if (minPrice.HasValue) query = query.Where(c => c.Price >= minPrice);
             if (maxPrice.HasValue) query = query.Where(c => c.Price <= maxPrice);
             if (minMileage.HasValue) query = query.Where(c => c.CarMilage >= minMileage);
@@ -50,13 +51,13 @@ namespace SchumachersAndAslanovsShop.Controllers
             if (minVolume.HasValue) query = query.Where(c => c.Description != null && c.Description.EngineVolume >= minVolume);
             if (maxVolume.HasValue) query = query.Where(c => c.Description != null && c.Description.EngineVolume <= maxVolume);
 
-            // НОВОЕ: Фильтр "No Crashed" (только не битые)
+            // + NOT CRASHED FILTER
             if (onlyCleanTitle == true)
             {
                 query = query.Where(c => c.Description != null && c.Description.Crashed == 0);
             }
 
-            // Сортировка
+            // SORTING
             query = sortBy switch
             {
                 "price_asc" => query.OrderBy(c => c.Price),
@@ -66,7 +67,7 @@ namespace SchumachersAndAslanovsShop.Controllers
                 _ => query.OrderByDescending(c => c.CarId)
             };
 
-            // Сохраняем состояние для View
+            // VIEWBAG FOR REMEMBERING FILTERS
             ViewBag.CurrentSearch = searchTerm;
             ViewBag.MinPrice = minPrice;
             ViewBag.MaxPrice = maxPrice;

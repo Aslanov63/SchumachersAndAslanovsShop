@@ -2,7 +2,10 @@
 using Microsoft.EntityFrameworkCore;
 using SchumachersAndAslanovsShop.Data;
 using SchumachersAndAslanovsShop.Models;
-
+//  Controller for managing parts, including listing parts by category, searching for parts,
+//  and viewing part details in an ASP.NET Core MVC application.
+//  It interacts with the database using Entity Framework Core to
+//  retrieve part and category information and pass it to the views for display.
 namespace SchumachersAndAslanovsShop.Controllers
 {
     public class PartsController : Controller

@@ -2,7 +2,8 @@
 using Microsoft.EntityFrameworkCore;
 using SchumachersAndAslanovsShop.Data;
 using SchumachersAndAslanovsShop.Models;
-
+//Controllers for user registration, login, logout, and profile management in an ASP.NET Core MVC application.
+// It interacts with the database using Entity Framework Core to manage user data and sessions.
 namespace SchumachersAndAslanovsShop.Controllers
 {
     public class AccountController : Controller
@@ -19,10 +20,11 @@ namespace SchumachersAndAslanovsShop.Controllers
         {
             return View();
         }
-
+        
         [HttpPost]
         public async Task<IActionResult> Register(RegisterViewModel model)
         {
+            // Validate the model and check for existing username and email before creating a new user account.
             if (ModelState.IsValid)
             {
                 var existingUser = await _context.Users.FirstOrDefaultAsync(u => u.Username == model.Username);
@@ -38,7 +40,7 @@ namespace SchumachersAndAslanovsShop.Controllers
                     ModelState.AddModelError("Gmail", "This email is already in use.");
                     return View(model);
                 }
-
+                // Create a new user with the provided information and save it to the database.
                 var user = new User
                 {
                     Username = model.Username,
@@ -59,7 +61,8 @@ namespace SchumachersAndAslanovsShop.Controllers
         }
 
         [HttpGet]
-        public IActionResult Login()
+        // Display the login view for users to enter their credentials.
+        public IActionResult Login()   
         {
             return View();
         }
@@ -84,7 +87,7 @@ namespace SchumachersAndAslanovsShop.Controllers
             ModelState.AddModelError("", "Invalid nickname or password.");
             return View();
         }
-
+        // Clear the user's session and redirect them to the home page upon logout.
         public IActionResult Logout()
         {
             HttpContext.Session.Clear();
@@ -108,6 +111,7 @@ namespace SchumachersAndAslanovsShop.Controllers
 
             return View(user);
         }
+        // Update the user's profile information in the database and redirect them back to the profile page with a success message.
         [HttpPost]
         public async Task<IActionResult> UpdateProfile(User model)
         {

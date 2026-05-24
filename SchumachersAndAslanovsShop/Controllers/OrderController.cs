@@ -2,10 +2,11 @@
 using Microsoft.EntityFrameworkCore;
 using SchumachersAndAslanovsShop.Data;
 using SchumachersAndAslanovsShop.Models;
-
+// Controller for managing orders, including viewing order details, placing new orders for cars,
+// and listing the user's past orders in an ASP.NET Core MVC application.
 namespace SchumachersAndAslanovsShop.Controllers
 {
-    public class OrdersController : Controller
+    public class OrdersController : Controller // Handles order-related operations such as viewing order details, placing new orders for cars, and listing the user's past orders in an ASP.NET Core MVC application.
     {
         private readonly AppDbContext _context;
 
@@ -13,7 +14,7 @@ namespace SchumachersAndAslanovsShop.Controllers
         {
             _context = context;
         }
-        public async Task<IActionResult> Details(int id)
+        public async Task<IActionResult> Details(int id) // Displays detailed information about a specific order, including the associated car and any parts included in the order, based on the provided order ID and ensuring the user is authorized to view the order in an ASP.NET Core MVC application.
         {
             int? userId = HttpContext.Session.GetInt32("UserId");
             if (userId == null) return RedirectToAction("Login", "Account");
@@ -30,7 +31,7 @@ namespace SchumachersAndAslanovsShop.Controllers
             return View(order);
         }
         [HttpPost]
-        public async Task<IActionResult> OrderCar(int carId, decimal price)
+        public async Task<IActionResult> OrderCar(int carId, decimal price) // Places a new order for a specified car with the given price, ensuring the user is logged in and associating the order with the user's ID in an ASP.NET Core MVC application.
         {
             int? userId = HttpContext.Session.GetInt32("UserId");
             if (userId == null) return RedirectToAction("Login", "Account");
@@ -50,7 +51,7 @@ namespace SchumachersAndAslanovsShop.Controllers
             return RedirectToAction("Success", "Cart");
         }
 
-        public async Task<IActionResult> MyOrders()
+        public async Task<IActionResult> MyOrders() // Displays a list of the current user's past orders, including associated car and part details, ensuring the user is logged in and retrieving the orders from the database in an ASP.NET Core MVC application.
         {
             int? userId = HttpContext.Session.GetInt32("UserId");
             if (userId == null) return RedirectToAction("Login", "Account");
